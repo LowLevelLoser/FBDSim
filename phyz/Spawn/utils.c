@@ -71,7 +71,7 @@ void FreeList(block_list_t* block_list){
     block_t* current_block = block_list->head;
     while (current_block != NULL){
         block_t* previous_block = current_block->previous;
-        free(current_block);
+        RemoveFromList(block_list, current_block);
         current_block = previous_block;
     }
     free(block_list);

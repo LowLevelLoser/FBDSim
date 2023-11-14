@@ -27,7 +27,7 @@ typedef struct{
 } block_list_t;
 
 typedef struct {
-    block_t block;
+    bool terminate;
     block_list_t* block_list;
 } game_t;
 

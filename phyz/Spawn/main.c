@@ -1,4 +1,6 @@
 #include <raylib.h>
+#include <pthread.h>
+#include <stdio.h>
 
 #include "game.h"
 #include "rendering.h"
@@ -12,22 +14,10 @@ int main(){
     SetTargetFPS(120);
 
     game_t game;
-    game.block.rect.width = 40;
-    game.block.rect.height = 40;
-    game.block.rect.x = SCREEN_WIDTH/2.0;
-    game.block.rect.y = SCREEN_HEIGHT/2.0;
-    game.block.position.x = game.block.rect.x;
-    game.block.position.y = game.block.rect.y;
-    game.block.acceleration.y = .17;
-    game.block.acceleration.x = 0;
-    game.block.size.x = game.block.rect.width;
-    game.block.size.y = game.block.rect.height;
-    game.block.position_buffer.x = game.block.rect.x;
-    game.block.position_buffer.y = game.block.rect.y;
-    game.block.mass = 1;
-    game.block.e_COR = .9;
 
     game.block_list = CreateBlockList();
+    pthread_t thread_id;
+    if(pthread_create(&thread_id, NULL, UpdateBlockList,&game)) return 1;
 
     while(!WindowShouldClose()){
         RunGame(&game);
@@ -36,11 +26,17 @@ int main(){
             RenderGame(&game);
         EndDrawing();
     }
+     game.terminate = true;
 
     //StopMusicStream(game.music);
 
     //CloseAudioDevice();
-
+    if (pthread_join(thread_id, NULL) != 0) {
+        printf("failed to hoin thread\n");
+        //FreeList(game.block_list);
+        //CloseWindow();
+        return 2;
+    }
     FreeList(game.block_list);
     CloseWindow();
 
