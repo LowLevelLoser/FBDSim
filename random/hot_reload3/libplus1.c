@@ -1,7 +1,0 @@
-char *get_library_name(){
-    return "I add 1 to ints";
-}
-
-int do_op(int i){
-    return i+1;
-}
