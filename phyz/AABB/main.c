@@ -14,12 +14,16 @@
 int main(){
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(SCREENWIDTH, SCREENHEIGHT, "grid");
+    InitWindow(SCREENWIDTH, SCREENHEIGHT, "AABB");
     //InitAudioDevice();
+    SetExitKey(0);
     SetTargetFPS(60);
 
     game_t game;
 
+    ArrayList shapes;
+    InitArrayList(&shapes);
+    game.shapes = &shapes;
     //void* libhandle_utils = dlopen("./utils.so", RTLD_LAZY);
     void* libhandle_logic = dlopen("./logic.so", RTLD_LAZY);
     void* libhandle_rendering = dlopen("./rendering.so", RTLD_LAZY);
@@ -79,13 +83,11 @@ int main(){
     }
 
     //dlclose(libhandle_utils);
+    FreeArrayList(game.shapes);
     dlclose(libhandle_logic);
     dlclose(libhandle_rendering);
     //StopMusicStream(game.music);
-
     //CloseAudioDevice();
-    UnloadFont(game.system_font);
-
     CloseWindow();
 
     return 0;

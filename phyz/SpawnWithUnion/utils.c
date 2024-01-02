@@ -1,9 +1,9 @@
 #include <raylib.h>
 #include <stdbool.h>
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "game.h"
+#include "rendering.h"
 #include "utils.h"
 
 #define INITIAL_CAPACITY 4
@@ -82,8 +82,6 @@ universal_components DefaultUniversalComponents(){
     u_components.bounding_box.height = 40;
     u_components.bounding_box.x = u_components.position.x - u_components.bounding_box.width/2;
     u_components.bounding_box.y = u_components.position.y - u_components.bounding_box.height/2;
-    u_components.position_buffer.x = u_components.position.x;
-    u_components.position_buffer.y = u_components.position.y;
     u_components.velocity.x = 0;
     u_components.velocity.y = 0;
     u_components.acceleration.x = 0;

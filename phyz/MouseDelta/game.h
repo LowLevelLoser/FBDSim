@@ -2,12 +2,11 @@
 #define GAME_H_
 
 #include <raylib.h>
-#include <stdbool.h>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 800
 
-typedef struct Block{
+typedef struct{
     Vector2 size;
     Vector2 position;
     Vector2 velocity;
@@ -15,19 +14,10 @@ typedef struct Block{
     float mass;
     float e_COR;
     Rectangle rect;
-    bool selected;
-    struct Block* previous;
-    struct Block* next;
 } block_t;
 
-typedef struct{
-    int size;
-    block_t* head;
-} block_list_t;
-
 typedef struct {
-    bool terminate;
-    block_list_t* block_list;
+    block_t block;
 } game_t;
 
 #endif

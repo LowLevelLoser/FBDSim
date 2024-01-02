@@ -16,7 +16,8 @@
     (Vector2){ (v1).x - (v2).x, (v1).y - (v2).y }
 
 void InitGame(game_t* game);
-Vector2 ScreenToWorldVec(const game_t* game, Vector2 vec);
-Vector2 WorldToScreenVec(const game_t* game, Vector2 vec);
+Vector2 ScreenToWorldVec(const Camera2D camera, Vector2 vec);
+Vector2 WorldToScreenVec(const Camera2D camera, Vector2 vec);
+float RoundToPowerOfFour(float num);
 
 #endif

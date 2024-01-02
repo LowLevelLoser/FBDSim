@@ -29,6 +29,11 @@ void RunGame(game_t *game){
         printf("zoom: %lf\n", game->camera.zoom);
     }
 
+    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+        Vector2 world_mouse = ScreenToWorldVec(game->camera, GetMousePosition());
+        printf("Screen %d, %d\n", GetMouseX(), GetMouseY());
+        printf("World %.2e, %.2e\n", world_mouse.x, world_mouse.y);
+    }
     // Camera target follows game->player
     //game->camera.target = (Vector2){ game->player.x + 20, game->player.y + 20 };
 
@@ -42,7 +47,7 @@ void RunGame(game_t *game){
 
     // Camera zoom controls
     // We want when it zooms the place where the mouse is zooming stays the same relative to the screen
-    Vector2 prescroll_target_vec = ScreenToWorldVec(game, GetMousePosition());
+    Vector2 prescroll_target_vec = ScreenToWorldVec(game->camera, GetMousePosition());
 #if 0
     //linear zoom
     game->camera.zoom +=
@@ -53,7 +58,7 @@ void RunGame(game_t *game){
 
 #endif
 
-    Vector2 delta_pos = VECTOR2_SUB((ScreenToWorldVec(game, GetMousePosition())),prescroll_target_vec);
+    Vector2 delta_pos = VECTOR2_SUB((ScreenToWorldVec(game->camera, GetMousePosition())),prescroll_target_vec);
     game->camera.target = VECTOR2_SUB(game->camera.target, delta_pos);
 
     // zoom caps

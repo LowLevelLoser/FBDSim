@@ -24,7 +24,6 @@ typedef struct{
 typedef struct{
     Rectangle bounding_box;
     Vector2 position;
-    Vector2 position_buffer;
     Vector2 velocity;
     Vector2 acceleration;
     float mass;

@@ -11,7 +11,7 @@ int main(){
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "window");
     InitAudioDevice();
-    //SetTargetFPS(120);
+    SetTargetFPS(120);
 
     game_t game;
 

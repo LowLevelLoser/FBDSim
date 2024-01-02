@@ -11,7 +11,6 @@
 universal_components UpdateObject(universal_components r_component);
 universal_components PositionCap(universal_components r_component);
 Objects* SelectedBlock(Vector2 mouse_position, ObjectsArray* object_array, size_t* return_index);
-static float frame_time = 0;
 
 void* UpdateObjectList(void* game_ptr){
     game_t* game = (game_t*)game_ptr;
@@ -39,7 +38,6 @@ void* UpdateObjectList(void* game_ptr){
 }
 
 void RunGame(game_t *game){
-    frame_time += GetFrameTime();
     static Objects* selected_object = NULL;
     static size_t selected_object_index;
     static bool update_selected_block = true;
@@ -93,16 +91,7 @@ void RunGame(game_t *game){
             else if (selected_object->type == BLOCK) {
                 selected_object->block.rect = selected_object->u_components.bounding_box;
             }
-        }
-        if (frame_time >= .01 && selected_object != NULL){
-            selected_object->u_components.velocity.x =
-                (selected_object->u_components.position.x - selected_object->u_components.position_buffer.x)/(frame_time*120);
-            selected_object->u_components.velocity.y =
-                (selected_object->u_components.position.y - selected_object->u_components.position_buffer.y)/(frame_time*120);
-
-            selected_object->u_components.position_buffer.x = selected_object->u_components.position.x;
-            selected_object->u_components.position_buffer.y = selected_object->u_components.position.y;
-            frame_time = 0.0001;
+            selected_object->u_components.velocity = GetMouseDelta();
         }
     }
     else {

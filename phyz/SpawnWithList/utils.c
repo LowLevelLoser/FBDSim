@@ -16,8 +16,6 @@ void DefaultBlockValues(block_t* block){
     block->rect.y = block->position.y - block->size.y/2;
     block->acceleration.y = .17;
     block->acceleration.x = 0;
-    block->position_buffer.x = block->position.x;
-    block->position_buffer.y = block->position.y;
     block->mass = 1;
     block->e_COR = .7;
     block->selected = false;

@@ -10,7 +10,6 @@
 void UpdateBlock(block_t* block);
 void PositionCap(block_t* block);
 block_t* SelectedBlock(Vector2 mouse_position, block_list_t* block_list);
-static float frame_time = 0;
 
 void *UpdateBlockList(void* void_block_list){
     game_t* game = (game_t*)void_block_list;
@@ -31,7 +30,6 @@ void *UpdateBlockList(void* void_block_list){
 }
 
 void RunGame(game_t *game){
-    frame_time += GetFrameTime();
     static block_t* selected_block = NULL;
     static bool update_selected_block = true;
     Vector2 mouse_position = GetMousePosition();
@@ -58,13 +56,7 @@ void RunGame(game_t *game){
             selected_block->position.y = mouse_position.y;
             selected_block->rect.x = selected_block->position.x - selected_block->size.x/2;
             selected_block->rect.y = selected_block->position.y - selected_block->size.y/2;
-        }
-        if (frame_time >= .01 && selected_block != NULL){
-            selected_block->velocity.x = (selected_block->position.x - selected_block->position_buffer.x)/(frame_time*120);
-            selected_block->velocity.y = (selected_block->position.y - selected_block->position_buffer.y)/(frame_time*120);
-            selected_block->position_buffer.x = selected_block->position.x;
-            selected_block->position_buffer.y = selected_block->position.y;
-            frame_time = 0.0001;
+            selected_block->velocity = GetMouseDelta();
         }
     }
     else {
